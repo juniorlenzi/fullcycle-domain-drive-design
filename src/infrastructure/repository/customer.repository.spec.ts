@@ -83,7 +83,7 @@ describe("Customer repository test", () => {
     const customerRepository = new CustomerRepository();
 
     expect(async () => {
-      await customerRepository.find("456ABC");
+      await customerRepository.find("456ABC")
     }).rejects.toThrow("Customer not found");
   });
 
