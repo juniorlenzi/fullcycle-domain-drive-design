@@ -1,10 +1,10 @@
-import EventDispatcher from "../event/@shared/event.dispatcher";
-import CustomerAddressChangedEvent from "../event/customer/customer-address-changed.event";
-import CustomerCreatedEvent from "../event/customer/customer-created.event";
-import SendConsoleLog1Handler from "../event/customer/handler/send-console-log-1.handler";
-import SendConsoleLog2Handler from "../event/customer/handler/send-console-log-2.handler";
-import SendConsoleLogHandler from "../event/customer/handler/send-console-log-handler";
-import Address from "./address";
+import EventDispatcher from "../../@shared/event/event.dispatcher";
+import CustomerAddressChangedEvent from "../events/customer-address-changed.event";
+import CustomerCreatedEvent from "../events/customer-created.event";
+import SendConsoleLog1Handler from "../events/handler/send-console-log-1.handler";
+import SendConsoleLog2Handler from "../events/handler/send-console-log-2.handler";
+import SendConsoleLogHandler from "../events/handler/send-console-log-handler";
+import Address from "../value-object/address";
 
 export default class Customer {
 
