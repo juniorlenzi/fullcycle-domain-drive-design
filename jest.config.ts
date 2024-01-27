@@ -22,7 +22,7 @@ const config = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: true,
+  collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: ["src/**/*.{ts,tsx}", "!src/**/*.d.ts", "!src/**/*.spec.ts", "!src/**/*.test.ts", "!src/**/index.ts", "!src/**/index.tsx", "!src/**/index.d.ts", "!src/**/index.spec.ts", "!src/**/index.test.ts", "!src/**/index.d.ts"],
