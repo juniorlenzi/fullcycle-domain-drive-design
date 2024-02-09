@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize-typescript"
 import ProductFactory from "../../../domain/product/factory/product.factory"
 import ListProductUseCase from "./list.product.usecase"
-import ProductModel from "../../../infrastructure/product/repository/sequelize/product.model"
-import ProductRepository from "../../../infrastructure/product/repository/sequelize/product.repository"
+import ProductModel from "../../../infrastructure/database/product/repository/sequelize/product.model"
+import ProductRepository from "../../../infrastructure/database/product/repository/sequelize/product.repository"
 import Product from "../../../domain/product/entity/product"
 
 describe('Integration Test list product use case', () => {
