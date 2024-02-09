@@ -9,7 +9,7 @@ export default class SendConsoleLogHandler implements EventHandlerInterface<Cust
         const eventName = event.constructor.name;
         const {id, name, address} = event.eventData;
 
-        console.log(`Endereço do cliente: ${id}, ${name} alterado para: ${address}`);
+        // console.log(`Endereço do cliente: ${id}, ${name} alterado para: ${address}`);
     }
     
 }

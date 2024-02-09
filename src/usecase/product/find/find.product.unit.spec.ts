@@ -1,7 +1,7 @@
 import Product from "../../../domain/product/entity/product";
 import FindProductUseCase from "./find.product.usecase";
 
-const prod = new Product('123', 'John Doe', 123)
+const prod = new Product('123', 'Product A', 123)
 
 const MockRepository = () => {
     return {
@@ -37,6 +37,6 @@ describe('Unit Test find product use caso', () => {
 
         expect(() => {
             return usecase.execute(input)
-        }).toThrow('Product not found')
+        }).rejects.toThrow('Product not found')
     })
 })

@@ -40,6 +40,6 @@ describe('Unit Test find customer use caso', () => {
 
         expect(() => {
             return usecase.execute(input)
-        }).toThrow('Customer not found')
+        }).rejects.toThrow('Customer not found')
     })
 })
