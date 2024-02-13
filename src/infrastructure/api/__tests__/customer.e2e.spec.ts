@@ -40,7 +40,7 @@ describe('E2E test for customer', () => {
 
         expect(response.status).toBe(500);
     })
-    
+
     it('should list all customers', async () => {
         await request(app)
             .post('/customer')
@@ -69,8 +69,53 @@ describe('E2E test for customer', () => {
             });
 
         const response = await request(app).get('/customer');
-        
+
         expect(response.status).toBe(200);
         expect(response.body.customers).toHaveLength(2);
+    })
+
+    it('should list all customers in xml format', async () => {
+        await request(app)
+            .post('/customer')
+            .send({
+                name: 'John Doe',
+                address: {
+                    street: '123 Main St',
+                    city: 'Springfield',
+                    state: 'IL',
+                    zip: '62701',
+                    number: '123'
+                }
+            });
+
+        await request(app)
+            .post('/customer')
+            .send({
+                name: 'Jane Doe',
+                address: {
+                    street: '123 Main St',
+                    city: 'Springfield',
+                    state: 'IL',
+                    zip: '62701',
+                    number: '123'
+                }
+            });
+
+        const response = await request(app)
+            .get('/customer')
+            .set('Accept', 'application/xml');
+
+        expect(response.status).toBe(200);
+        expect(response.text).toContain(`<?xml version="1.0" encoding="UTF-8"?>`);
+        expect(response.text).toContain(`<customers>`);
+        expect(response.text).toContain(`<customer>`);
+        expect(response.text).toContain(`<id>`);
+        expect(response.text).toContain(`<name>`);
+        expect(response.text).toContain(`<address>`);
+        expect(response.text).toContain(`<street>`);
+        expect(response.text).toContain(`<city>`);
+        expect(response.text).toContain(`<zip>`);
+        expect(response.text).toContain(`</customer>`);
+        expect(response.text).toContain(`</customers>`);
     })
 })
