@@ -1,4 +1,6 @@
+import Entity from "../../@shared/entity/entity.abstract";
 import EventDispatcher from "../../@shared/event/event.dispatcher";
+import NotificationError from "../../@shared/notification/notification.error";
 import CustomerAddressChangedEvent from "../events/customer-address-changed.event";
 import CustomerCreatedEvent from "../events/customer-created.event";
 import SendConsoleLog1Handler from "../events/handler/send-console-log-1.handler";
@@ -6,24 +8,25 @@ import SendConsoleLog2Handler from "../events/handler/send-console-log-2.handler
 import SendConsoleLogHandler from "../events/handler/send-console-log-handler";
 import Address from "../value-object/address";
 
-export default class Customer {
+export default class Customer extends Entity{
 
-    private _id: string;
     private _name: string;
     private _address!: Address;
     private _active: boolean = true
     private _rewardPoints: number = 0;
 
-
     constructor(id: string, name: string) {
+        super();
         this._id = id;
         this._name = name;
         this.validate();
+
+        if (this.notification.hasErrors()) {
+            throw new NotificationError(this.notification.getErrors())
+        }
     }
 
     create(){
-        //lógica de criação do cliente
-        
         const eventDispatcher = new EventDispatcher()
         const firstEventHandler = new SendConsoleLog1Handler()
         const secondEventHandler = new SendConsoleLog2Handler()
@@ -34,11 +37,11 @@ export default class Customer {
 
     validate() {
         if (this._id.length == 0) {
-            throw new Error('Id is required')
+            this.notification.addError({ message: 'Id is required', context: 'customer' })
         }
 
         if (this._name.length == 0) {
-            throw new Error('Name is required')
+            this.notification.addError({ message: 'Name is required', context: 'customer' })
         }
     }
 
@@ -53,8 +56,13 @@ export default class Customer {
 
     activate() {
         if (this._address === undefined) {
-            throw new Error("Address is mandatory to activate a customer");
+            this.notification.addError({ message: 'customer: Address is mandatory to activate a customer', context: 'customer' })
         }
+
+        if (this.notification.hasErrors()) {
+            throw new NotificationError(this.notification.getErrors())
+        }
+
         this._active = true;
     }
 
@@ -76,10 +84,6 @@ export default class Customer {
         })
 
         eventDispatcher.notify(event)
-    }
-
-    get id(): string {
-        return this._id;
     }
 
     get name(): string {
